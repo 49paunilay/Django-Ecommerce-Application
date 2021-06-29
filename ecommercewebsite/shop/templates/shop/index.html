@@ -1,0 +1,115 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'shop/style.css' %}">
+
+    <title>Ecommeerce</title>
+  </head>
+  <body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" >
+                <nav class="navbar navbar-expand-lg navbar-light bg-light" style="justify-content: space-around;">
+                    <a class="navbar-brand" href="#">Ecommerce Home</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                      <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="/cartdetails">
+                                <button id="cart-items" data-html="true" type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
+                                sagittis lacus vel augue laoreet rutrum faucibus."
+                                >
+                                  Cart (0)
+                                </button>
+                            </a>
+                            <a href="/contact">
+                                <button data-html="true" type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
+                                sagittis lacus vel augue laoreet rutrum faucibus."
+                                >
+                                  Contact Us
+                                </button>
+                            </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <form class="card card-sm">
+                    <div class="card-body row no-gutters align-items-center">
+                        <div class="col">
+                            <input type="search" name="item_name" placeholder="Search for item" class="form-control form-control-borderless">
+
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-success" type="submit">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="row">
+            {% for product in product_object %}
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="{{product.image}}"  class="card-img-top">
+                    <div class="card-body">
+                        <div id="nm{{ product.id }}" class="card-title">{{product.title}}</div>
+                        <div id="price{{ product.id }}" class="card-text">{{product.price}}</div>
+                        <a href="/{{ product.id }}" class="btn btn-warning">View</a>
+                        <button id="{{product.id}}" class="btn addToCart btn-warning">Add to cart</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-md-3 offset-md-4">
+                <ul class="pagination">
+                    {% if product_object.has_previous %}
+                        <li class="page_item">
+                            <a class="page-link" href="?page={{ product_object.previous_page_number }}">Previous</a>
+                        </li>
+                    {% endif %}
+                    <li class="page_item active">
+                        <a class="page-link" href="?page={{ product_object.number }}">Current Page</a>
+                    </li>
+                    {% if product_object.has_next %}
+                        <li class="page_item">
+                            <a class="page-link" href="?page={{ product_object.next_page_number }}">Next</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+  </body>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<script>
+     
+</script>
+  <script src="{% static 'shop/addtocart.js' %}"></script>
+</html>
